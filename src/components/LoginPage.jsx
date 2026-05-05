@@ -6,6 +6,7 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [email, setEmail] = useState('');
 
   const colors = {
     primary: '#2D8E6E',
@@ -75,7 +76,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                     Gestiona tu salud y medicamentos con confianza.
                   </p>
 
-                    <form onSubmit={(e) => { e.preventDefault(); onLoginSuccess(); }}>
+                    <form onSubmit={(e) => { e.preventDefault(); onLoginSuccess(email.split('@')[0] || 'Usuario'); }}>
                       <div className="mb-6">
 <label htmlFor="login-email" className="block text-xl font-medium text-gray-700 mb-2">
                           Correo Electrónico
@@ -90,6 +91,8 @@ const LoginPage = ({ onLoginSuccess }) => {
                             id="login-email"
                             type="email"
                             placeholder="nombre@ejemplo.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full pl-14 pr-5 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-1 transition-all text-lg"
                             style={{ '--tw-ring-color': colors.primary }}
                             aria-label="Correo electrónico"
@@ -200,7 +203,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                     Únete a VitalityGuide para gérer tu salud.
                   </p>
 
-                  <form onSubmit={(e) => { e.preventDefault(); onLoginSuccess(); }}>
+                  <form onSubmit={(e) => { e.preventDefault(); onLoginSuccess(email.split('@')[0] || 'Usuario'); }}>
                     <div className="mb-6">
 <label htmlFor="register-name" className="block text-sm font-medium text-gray-700 mb-1.5">
                           Nombre Completo

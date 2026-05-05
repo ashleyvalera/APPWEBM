@@ -3,7 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useMedications } from '../context/MedicationsContext';
 import AddMedicationModal from '../components/AddMedicationModal';
 
-const History = ({ onLogout }) => {
+const getInitials = (name) => {
+  if (!name) return 'U';
+  const parts = name.split(' ');
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return name.slice(0, 2).toUpperCase();
+};
+
+const History = ({ onLogout, userName }) => {
   const navigate = useNavigate();
   const { 
     medications, 
@@ -250,7 +257,7 @@ const History = ({ onLogout }) => {
         </div>
 
         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-medium">
-          JD
+          {getInitials(userName)}
         </div>
       </div>
     </header>

@@ -3,7 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useMedications } from '../context/MedicationsContext';
 import AddMedicationModal from '../components/AddMedicationModal';
 
-const Dashboard = ({ onLogout }) => {
+const getInitials = (name) => {
+  if (!name) return 'U';
+  const parts = name.split(' ');
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return name.slice(0, 2).toUpperCase();
+};
+
+const Dashboard = ({ onLogout, userName }) => {
   const navigate = useNavigate();
   const { 
     medications, 
@@ -156,7 +163,7 @@ const Dashboard = ({ onLogout }) => {
   const Header = () => (
     <header className="flex items-center justify-between mb-12 relative">
       <div>
-        <h1 className="text-4xl font-bold text-gray-900" style={{ fontFamily: 'Manrope, sans-serif' }}>Hola, Jordan</h1>
+        <h1 className="text-4xl font-bold text-gray-900" style={{ fontFamily: 'Manrope, sans-serif' }}>Hola, {userName || 'Usuario'}</h1>
         <p className="text-gray-500 text-lg mt-2">Tu camino de salud se ve genial hoy.</p>
       </div>
       <div className="flex items-center gap-4">
@@ -211,7 +218,7 @@ const Dashboard = ({ onLogout }) => {
         </div>
 
         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-medium text-lg shadow-md cursor-pointer">
-          JD
+          {getInitials(userName)}
         </div>
       </div>
     </header>

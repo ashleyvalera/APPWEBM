@@ -8,8 +8,14 @@ import History from './pages/History'
 
 function App() {
   const [isLogged, setIsLogged] = useState(false)
+  const [userName, setUserName] = useState('')
 
   const handleLogout = () => setIsLogged(false)
+
+  const handleLoginSuccess = (name) => {
+    setIsLogged(true)
+    setUserName(name || 'Usuario')
+  }
 
   return (
     <BrowserRouter>
@@ -18,25 +24,25 @@ function App() {
           <Route 
             path="/" 
             element={
-              isLogged ? <Navigate to="/dashboard" /> : <LoginPage onLoginSuccess={() => setIsLogged(true)} />
+              isLogged ? <Navigate to="/dashboard" /> : <LoginPage onLoginSuccess={handleLoginSuccess} />
             } 
           />
           <Route 
             path="/dashboard" 
             element={
-              isLogged ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/" />
+              isLogged ? <Dashboard userName={userName} onLogout={handleLogout} /> : <Navigate to="/" />
             } 
           />
           <Route 
             path="/medications" 
             element={
-              isLogged ? <Medications onLogout={handleLogout} /> : <Navigate to="/" />
+              isLogged ? <Medications userName={userName} onLogout={handleLogout} /> : <Navigate to="/" />
             } 
           />
           <Route 
             path="/history" 
             element={
-              isLogged ? <History onLogout={handleLogout} /> : <Navigate to="/" />
+              isLogged ? <History userName={userName} onLogout={handleLogout} /> : <Navigate to="/" />
             } 
           />
         </Routes>
